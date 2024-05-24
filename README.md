@@ -1,30 +1,55 @@
-# React + TypeScript + Vite
+# Front-End Engineer Coding Exercise
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A solution to [a front-end engineer technical challenge from Line-Up](https://lineupnow.notion.site/Front-End-Engineer-Line-Up-Coding-Exercise-Junior-66237f2b49c243c5999696a75c9683c5).
 
-Currently, two official plugins are available:
+<img src="./docs/user-list.png" />
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+<img src="./docs/user-details.png" />
 
-## Expanding the ESLint configuration
+## Usage
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+Install Node:
 
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+```bash
+curl -L https://git.io/n-install | bash
+n auto
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+Install pnpm:
+
+```bash
+npm i -g pnpm
+```
+
+Install dependencies:
+
+```bash
+pnpm i
+```
+
+Run development server:
+
+```bash
+pnpm dev
+```
+
+## Technology
+
+#### Tooling
+
+- [TypeScript](https://www.typescriptlang.org/) for type-checking and type-safety.
+- [Prettier](https://prettier.io/) for code formatting.
+- [ESLint](https://eslint.org/) for linting and error-checking.
+- [Vite](https://vitejs.dev/) for development server.
+
+#### Front-end
+
+- [React](https://reactjs.org/) for user interface, state and components.
+- [React Router](https://reactrouter.com/) for routing.
+- [React Query](https://react-query.tanstack.com/) for data management.
+- [Ky](https://github.com/sindresorhus/ky) from data fetching.
+- [Mantine](https://mantine.dev/) for UI.
+
+## License
+
+This project is licensed under the [MIT license](https://opensource.org/license/mit/).

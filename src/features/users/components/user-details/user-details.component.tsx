@@ -1,28 +1,45 @@
 import {
 	Alert,
 	Avatar,
+	Button,
 	Center,
+	Container,
 	Group,
 	Loader,
 	Table,
 	Title,
 } from "@mantine/core";
+import { IconArrowLeft } from "@tabler/icons-react";
 import { useQuery } from "@tanstack/react-query";
+import { useEffect } from "react";
+import { Link, useParams } from "react-router-dom";
 import { getUser } from "../../api/get-user";
 
-export interface UserDetailsProps {
-	id: number | null;
-}
+export const UserDetails = () => {
+	const { userId } = useParams();
+	const id = userId ? Number.parseInt(userId, 10) : null;
 
-export const UserDetails = ({ id }: UserDetailsProps) => {
 	const { isPending, isError, data, error } = useQuery({
 		queryKey: ["user", id],
 		queryFn: () => getUser({ id: id as number }),
 		enabled: id !== null,
 	});
 
+	useEffect(() => {
+		document.title = isPending
+			? "Loading..."
+			: isError
+				? "Error"
+				: `${data.data.first_name} ${data.data.last_name} - User Details`;
+	}, [isPending, isError, data]);
+
 	return (
-		<>
+		<Container mt="md">
+			<Link to="/">
+				<Button variant="transparent" mb="md" leftSection={<IconArrowLeft />}>
+					Go back
+				</Button>
+			</Link>
 			{isPending ? (
 				<Center>
 					<Loader />
@@ -59,6 +76,6 @@ export const UserDetails = ({ id }: UserDetailsProps) => {
 					</Table>
 				</>
 			)}
-		</>
+		</Container>
 	);
 };

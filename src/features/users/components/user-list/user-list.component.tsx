@@ -7,25 +7,27 @@ import {
 	Group,
 	List,
 	Loader,
-	Modal,
 	Title,
 } from "@mantine/core";
-import { useDisclosure } from "@mantine/hooks";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
-import { useState } from "react";
+import { useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { getUsers } from "../../api/get-users";
-import { UserDetails } from "../user-details";
 
 export const UserList = () => {
-	const [selectedUserId, setSelectedUserId] = useState<number | null>(null);
-	const [page, setPage] = useState(1);
-	const [opened, { open, close }] = useDisclosure();
+	const navigate = useNavigate();
+	const { pageId: pageIdParam } = useParams();
+	const page = pageIdParam ? Number.parseInt(pageIdParam, 10) : 1;
 
 	const { isPending, isError, data, error } = useQuery({
 		queryKey: ["users", page],
 		queryFn: () => getUsers({ page }),
 		placeholderData: keepPreviousData,
 	});
+
+	useEffect(() => {
+		document.title = "User List";
+	}, []);
 
 	return (
 		<Container mt="md">
@@ -46,10 +48,7 @@ export const UserList = () => {
 								key={user.id}
 								icon={<Avatar src={user.avatar} />}
 								style={{ cursor: "pointer" }}
-								onClick={() => {
-									setSelectedUserId(user.id);
-									open();
-								}}
+								onClick={() => navigate(`/user/${user.id}`)}
 							>
 								{user.first_name} {user.last_name}
 							</List.Item>
@@ -61,7 +60,7 @@ export const UserList = () => {
 							color="dark"
 							mt="md"
 							disabled={page <= 1}
-							onClick={() => setPage((prevPage) => prevPage - 1)}
+							onClick={() => navigate(`/users/${page - 1}`)}
 						>
 							Previous page
 						</Button>
@@ -70,16 +69,13 @@ export const UserList = () => {
 							color="dark"
 							mt="md"
 							disabled={page >= data.total_pages}
-							onClick={() => setPage((prevPage) => prevPage + 1)}
+							onClick={() => navigate(`/users/${page + 1}`)}
 						>
 							Next page
 						</Button>
 					</Group>
 				</>
 			)}
-			<Modal opened={opened} onClose={close} title="User Details">
-				<UserDetails id={selectedUserId} />
-			</Modal>
 		</Container>
 	);
 };

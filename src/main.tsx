@@ -5,14 +5,22 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import App from "./App.tsx";
+import { UserList, UserDetails } from "./features/users";
 import { queryClient } from "./lib/query-client.ts";
 import { theme } from "./lib/theme.ts";
 
 const router = createBrowserRouter([
 	{
 		path: "/",
-		element: <App />,
+		element: <UserList />,
+	},
+	{
+		path: "/users/:pageId",
+		element: <UserList />,
+	},
+	{
+		path: "/user/:userId",
+		element: <UserDetails />,
 	},
 ]);
 
